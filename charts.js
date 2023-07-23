@@ -152,7 +152,7 @@ const typicalDay = (height, data, yAxisText, tooltipYMetric) => {
   const perc10 = data.map((a) => a.percentile10);
   const min = data.map((a) => a.min);
   const times = data.map(
-    (a) => `${a.time.split(":")[0]}:${a.Time.split(":")[1]}`
+    (a) => `${a.time.split(":")[0]}:${a.time.split(":")[1]}`
   );
 
   var options = {
