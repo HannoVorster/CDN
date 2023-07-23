@@ -134,4 +134,4 @@ const Charts = {
   historical: historical,
 };
 
-export default Charts;
+module.exports = Charts;
