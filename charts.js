@@ -1,139 +1,137 @@
-const Charts = (function () {
-  const historical = (
-    height,
-    values,
-    minDate,
-    maxDate,
-    yAxisText,
-    toolTipXFormat,
-    tooltipYMetric
-  ) => {
-    var options = {
-      series: values,
-      chart: {
-        type: "line",
-        height: height,
-        toolbar: {
-          show: true,
-          offsetY: 300,
-          tools: {
-            selection: false,
-            zoomin: false,
-            zoomout: false,
-            pan: false,
-          },
-        },
-        zoom: {
-          enabled: true,
-        },
-        animations: {
-          enabled: false,
-        },
-        fontFamily: "inherit",
-        events: {
-          beforeResetZoom: function (chartContext, opts) {
-            return {
-              xaxis: {
-                min: moment(minDate).startOf("h").valueOf(),
-                max: moment(maxDate).endOf("h").valueOf(),
-              },
-            };
-          },
+const historical = (
+  height,
+  values,
+  minDate,
+  maxDate,
+  yAxisText,
+  toolTipXFormat,
+  tooltipYMetric
+) => {
+  var options = {
+    series: values,
+    chart: {
+      type: "line",
+      height: height,
+      toolbar: {
+        show: true,
+        offsetY: 300,
+        tools: {
+          selection: false,
+          zoomin: false,
+          zoomout: false,
+          pan: false,
         },
       },
-      colors: colors,
-      legend: {
-        showForSingleSeries: true,
-        position: "top",
-        labels: {
-          colors: "#565674",
+      zoom: {
+        enabled: true,
+      },
+      animations: {
+        enabled: false,
+      },
+      fontFamily: "inherit",
+      events: {
+        beforeResetZoom: function (chartContext, opts) {
+          return {
+            xaxis: {
+              min: moment(minDate).startOf("h").valueOf(),
+              max: moment(maxDate).endOf("h").valueOf(),
+            },
+          };
         },
       },
-      stroke: {
-        curve: "smooth",
-        width: 2,
+    },
+    colors: colors,
+    legend: {
+      showForSingleSeries: true,
+      position: "top",
+      labels: {
+        colors: "#565674",
       },
-      xaxis: {
-        type: "datetime",
-        min: moment(minDate).startOf("h").valueOf(),
-        max: moment(maxDate).endOf("h").valueOf(),
-        labels: {
-          datetimeUTC: false,
-          format: "MMM dd, HH:mm",
-        },
-        title: {
-          text: "Date Time",
-          style: {
-            color: "#565674",
-            fontSize: "12px",
-          },
-        },
+    },
+    stroke: {
+      curve: "smooth",
+      width: 2,
+    },
+    xaxis: {
+      type: "datetime",
+      min: moment(minDate).startOf("h").valueOf(),
+      max: moment(maxDate).endOf("h").valueOf(),
+      labels: {
+        datetimeUTC: false,
+        format: "MMM dd, HH:mm",
       },
-      yaxis: {
-        forceNiceScale: true,
-        min: 0,
-        title: {
-          text: yAxisText,
-          style: {
-            color: "#565674",
-            fontSize: "12px",
-          },
-        },
-        labels: {
-          formatter: (val) => {
-            return Intl.NumberFormat("en-US", {
-              maximumFractionDigits: 0,
-            }).format(val);
-          },
-          style: {
-            colors: "#565674",
-            fontSize: "12px",
-          },
-        },
-      },
-      grid: {
-        strokeDashArray: 4,
-        yaxis: {
-          lines: {
-            show: true,
-          },
-        },
-        xaxis: {
-          lines: {
-            show: true,
-          },
-        },
-      },
-      tooltip: {
-        shared: true,
+      title: {
+        text: "Date Time",
         style: {
+          color: "#565674",
           fontSize: "12px",
         },
-        x: {
-          show: true,
-          format: toolTipXFormat,
-        },
-        y: {
-          formatter: (val) => {
-            if (isNaN(val) || val == null) {
-              return "No Data";
-            }
-            return (
-              Intl.NumberFormat("en-US", { maximumFractionDigits: 2 }).format(
-                val
-              ) + tooltipYMetric
-            );
-          },
+      },
+    },
+    yaxis: {
+      forceNiceScale: true,
+      min: 0,
+      title: {
+        text: yAxisText,
+        style: {
+          color: "#565674",
+          fontSize: "12px",
         },
       },
-    };
-
-    return options;
+      labels: {
+        formatter: (val) => {
+          return Intl.NumberFormat("en-US", {
+            maximumFractionDigits: 0,
+          }).format(val);
+        },
+        style: {
+          colors: "#565674",
+          fontSize: "12px",
+        },
+      },
+    },
+    grid: {
+      strokeDashArray: 4,
+      yaxis: {
+        lines: {
+          show: true,
+        },
+      },
+      xaxis: {
+        lines: {
+          show: true,
+        },
+      },
+    },
+    tooltip: {
+      shared: true,
+      style: {
+        fontSize: "12px",
+      },
+      x: {
+        show: true,
+        format: toolTipXFormat,
+      },
+      y: {
+        formatter: (val) => {
+          if (isNaN(val) || val == null) {
+            return "No Data";
+          }
+          return (
+            Intl.NumberFormat("en-US", { maximumFractionDigits: 2 }).format(
+              val
+            ) + tooltipYMetric
+          );
+        },
+      },
+    },
   };
 
-  return {
-    historical,
-  };
-})();
+  return options;
+};
 
-module.exports = Charts;
+const Charts = {
+  historical: historical,
+};
+
+module.export = Charts;
