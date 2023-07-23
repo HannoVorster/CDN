@@ -128,9 +128,11 @@ const Charts = (function () {
       },
     };
 
-    return {
-      historical,
-    };
+    return options;
+  };
+
+  return {
+    historical,
   };
 })();
 
