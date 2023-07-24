@@ -91,11 +91,11 @@ const historical = (
         },
       },
       labels: {
-        formatter: (val) => {
-          return Intl.NumberFormat("en-US", {
-            maximumFractionDigits: 0,
-          }).format(val);
-        },
+        // formatter: (val) => {
+        //   return Intl.NumberFormat("en-US", {
+        //     maximumFractionDigits: 0,
+        //   }).format(val);
+        // },
         style: {
           colors: "#565674",
           fontSize: "12px",
