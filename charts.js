@@ -1,5 +1,13 @@
 // Historical Chart
 const historical = (height, values, minDate, maxDate, yAxisText, toolTipXFormat, tooltipYMetric) => {
+  console.log(values);
+
+  // Set yaxis decimals
+  let valuesArr = values.flatMap((item) => item.data.map((dataItem) => dataItem[1]));
+  let maxVal = Math.max(...valuesArr);
+  let yAxisDecimals = maxVal < 2 ? 2 : 0;
+  let yAxisMax = maxVal > 2 ? undefined : Math.ceil(maxVal);
+
   var options = {
     series: values,
     chart: {
@@ -33,7 +41,7 @@ const historical = (height, values, minDate, maxDate, yAxisText, toolTipXFormat,
         },
       },
     },
-    colors: ["#f78f1e", "#3359FF", "#7333FF", "#30a6d3", "#775DD0", "#3F51B5", "#4CAF50", "#2B908F", "#2E294E", "#D7263D"],
+    colors: ["#f78f1e", "#3359FF", "#7333FF", "#30a6d3", "#775DD0", "#3F51B5", "#4CAF50", "#2B908F", "#2E294E", "#D7263D", "#5C4742"],
     legend: {
       showForSingleSeries: true,
       position: "top",
@@ -64,6 +72,7 @@ const historical = (height, values, minDate, maxDate, yAxisText, toolTipXFormat,
     yaxis: {
       forceNiceScale: true,
       min: 0,
+      max: yAxisMax,
       title: {
         text: yAxisText,
         style: {
@@ -74,7 +83,7 @@ const historical = (height, values, minDate, maxDate, yAxisText, toolTipXFormat,
       labels: {
         formatter: (val) => {
           return Intl.NumberFormat("en-US", {
-            maximumFractionDigits: 0,
+            maximumFractionDigits: yAxisDecimals,
           }).format(val);
         },
         style: {
@@ -269,6 +278,11 @@ const typicalDay = (height, data, yAxisText, tooltipYMetric) => {
   const min = data.map((a) => a.min);
   const times = data.map((a) => `${a.time.split(":")[0]}:${a.time.split(":")[1]}`);
 
+  // Set yaxis decimals
+  let maxVal = Math.max(...max);
+  let yAxisDecimals = maxVal < 2 ? 2 : 0;
+  let yAxisMax = maxVal > 2 ? undefined : Math.ceil(maxVal);
+
   var options = {
     series: [
       {
@@ -375,6 +389,7 @@ const typicalDay = (height, data, yAxisText, tooltipYMetric) => {
     yaxis: {
       forceNiceScale: true,
       min: 0,
+      max: yAxisMax,
       title: {
         text: yAxisText,
         style: {
@@ -385,7 +400,7 @@ const typicalDay = (height, data, yAxisText, tooltipYMetric) => {
       labels: {
         formatter: (val) => {
           return Intl.NumberFormat("en-US", {
-            maximumFractionDigits: 0,
+            maximumFractionDigits: yAxisDecimals,
           }).format(val);
         },
         style: {
@@ -393,7 +408,6 @@ const typicalDay = (height, data, yAxisText, tooltipYMetric) => {
           fontSize: "12px",
         },
       },
-      tickAmount: 5,
     },
     grid: {
       strokeDashArray: 4,
