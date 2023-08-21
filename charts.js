@@ -127,7 +127,7 @@ const historical = (height, values, minDate, maxDate, yAxisText, toolTipXFormat,
 };
 
 // Historical Reservoir Chart
-const historicalReservoir = (height, values, minDate, maxDate, yAxisText, toolTipXFormat) => {
+const historicalReservoir = (height, values, minDate, maxDate, toolTipXFormat) => {
   var options = {
     series: values,
     chart: {
@@ -193,7 +193,7 @@ const historicalReservoir = (height, values, minDate, maxDate, yAxisText, toolTi
       forceNiceScale: true,
       min: 0,
       title: {
-        text: yAxisText,
+        text: `Percentage Full (%)`,
         style: {
           color: "#565674",
           fontSize: "12px",
@@ -642,6 +642,7 @@ const typicalDayAdvanced = (height, data, yAxisText, tooltipYMetric) => {
 // Add all functions in an object
 const Charts = {
   historical: historical,
+  historicalReservoir: historicalReservoir,
   typicalDay: typicalDay,
   typicalDayAdvanced: typicalDayAdvanced,
 };
