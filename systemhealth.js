@@ -15,7 +15,7 @@
         Battery: double
     }
 */
-const table = (tableElement, data) => {
+const table = (tableElement, data, keepAlive = 62) => {
   $(`${tableElement} thead`).append(`<tr class="fw-bold fs-6 text-muted">
                                             <th class="text-center">Name</th>
                                             <th class="text-center">Device ID</th>
@@ -105,7 +105,7 @@ const table = (tableElement, data) => {
                                                     <td class="text-center">${lqi}</td>
                                                     <td class="text-center">${battery}</td>
                                                     <td class="text-center">${
-                                                      moment.duration(moment().diff(moment(device.LastMessage))).asMinutes() < 62
+                                                      moment.duration(moment().diff(moment(device.LastMessage))).asMinutes() < keepAlive
                                                         ? "<span style='color: green'><b>Online</b></span>"
                                                         : "<span style='color: red'><b>Offline</b></span>"
                                                     }</td>

@@ -1,3 +1,5 @@
+const colors = ["#f78f1e", "#3359FF", "#7333FF", "#30a6d3", "#775DD0", "#3F51B5", "#4CAF50", "#2B908F", "#2E294E", "#D7263D"];
+
 // Historical Chart
 const historical = (height, values, minDate, maxDate, yAxisText, toolTipXFormat, tooltipYMetric) => {
   // Set yaxis decimals
@@ -20,6 +22,14 @@ const historical = (height, values, minDate, maxDate, yAxisText, toolTipXFormat,
           zoomout: false,
           pan: false,
         },
+        export: {
+          csv: {
+            headerCategory: "Date",
+            dateFormatter(timestamp) {
+              return moment(timestamp).format("YYYY-MM-DD HH:mm");
+            },
+          },
+        },
       },
       zoom: {
         enabled: true,
@@ -39,7 +49,7 @@ const historical = (height, values, minDate, maxDate, yAxisText, toolTipXFormat,
         },
       },
     },
-    colors: ["#f78f1e", "#3359FF", "#7333FF", "#30a6d3", "#775DD0", "#3F51B5", "#4CAF50", "#2B908F", "#2E294E", "#D7263D", "#5C4742"],
+    colors: colors,
     legend: {
       showForSingleSeries: true,
       position: "top",
@@ -121,13 +131,25 @@ const historical = (height, values, minDate, maxDate, yAxisText, toolTipXFormat,
         },
       },
     },
+    noData: {
+      text: "No Data",
+      align: "center",
+      verticalAlign: "middle",
+      offsetX: 0,
+      offsetY: 0,
+      style: {
+        color: "#000000",
+        fontSize: "16px",
+        fontFamily: "Helvetica",
+      },
+    },
   };
 
   return options;
 };
 
 // Historical Reservoir Chart
-const historicalReservoir = (height, values, minDate, maxDate, toolTipXFormat) => {
+const historicalLevel = (height, values, minDate, maxDate, yAxisText, toolTipXFormat) => {
   var options = {
     series: values,
     chart: {
@@ -141,6 +163,14 @@ const historicalReservoir = (height, values, minDate, maxDate, toolTipXFormat) =
           zoomin: false,
           zoomout: false,
           pan: false,
+        },
+        export: {
+          csv: {
+            headerCategory: "Date",
+            dateFormatter(timestamp) {
+              return moment(timestamp).format("YYYY-MM-DD HH:mm");
+            },
+          },
         },
       },
       zoom: {
@@ -161,7 +191,7 @@ const historicalReservoir = (height, values, minDate, maxDate, toolTipXFormat) =
         },
       },
     },
-    colors: ["#f78f1e", "#3359FF", "#7333FF", "#30a6d3", "#775DD0", "#3F51B5", "#4CAF50", "#2B908F", "#2E294E", "#D7263D"],
+    colors: colors,
     legend: {
       showForSingleSeries: true,
       position: "top",
@@ -179,7 +209,7 @@ const historicalReservoir = (height, values, minDate, maxDate, toolTipXFormat) =
       max: moment(maxDate).endOf("h").valueOf(),
       labels: {
         datetimeUTC: false,
-        format: "MMM dd, HH:mm",
+        format: "MMM dd",
       },
       title: {
         text: "Date Time",
@@ -192,8 +222,9 @@ const historicalReservoir = (height, values, minDate, maxDate, toolTipXFormat) =
     yaxis: {
       forceNiceScale: true,
       min: 0,
+      max: 120,
       title: {
-        text: `Percentage Full (%)`,
+        text: yAxisText,
         style: {
           color: "#565674",
           fontSize: "12px",
@@ -259,6 +290,18 @@ const historicalReservoir = (height, values, minDate, maxDate, toolTipXFormat) =
           },
         },
       ],
+    },
+    noData: {
+      text: "No Data",
+      align: "center",
+      verticalAlign: "middle",
+      offsetX: 0,
+      offsetY: 0,
+      style: {
+        color: "#000000",
+        fontSize: "16px",
+        fontFamily: "Helvetica",
+      },
     },
   };
 
@@ -431,7 +474,7 @@ const typicalDay = (height, data, yAxisText, tooltipYMetric) => {
       },
     },
     noData: {
-      text: "No data to display...",
+      text: "No Data",
       align: "center",
       verticalAlign: "middle",
       offsetX: 0,
@@ -625,7 +668,7 @@ const typicalDayAdvanced = (height, data, yAxisText, tooltipYMetric) => {
       },
     },
     noData: {
-      text: "No data to display...",
+      text: "No Data",
       align: "center",
       verticalAlign: "middle",
       offsetX: 0,
@@ -642,7 +685,7 @@ const typicalDayAdvanced = (height, data, yAxisText, tooltipYMetric) => {
 // Add all functions in an object
 const Charts = {
   historical: historical,
-  historicalReservoir: historicalReservoir,
+  historicalLevel: historicalLevel,
   typicalDay: typicalDay,
   typicalDayAdvanced: typicalDayAdvanced,
 };
