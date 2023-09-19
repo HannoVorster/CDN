@@ -67,7 +67,7 @@ const historical = (height, values, minDate, maxDate, yAxisText, toolTipXFormat,
       max: moment(maxDate).endOf("h").valueOf(),
       labels: {
         datetimeUTC: false,
-        format: "MMM dd",
+        format: moment(minDate).format("YYYY-MM-DD") == moment(maxDate).format("YYYY-MM-DD") ? "MMM dd, HH:mm" : "MMM dd",
       },
       title: {
         text: "Date Time",
