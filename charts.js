@@ -209,7 +209,7 @@ const historicalLevel = (height, values, minDate, maxDate, yAxisText, toolTipXFo
       max: moment(maxDate).endOf("h").valueOf(),
       labels: {
         datetimeUTC: false,
-        format: "MMM dd",
+        format: moment(minDate).format("YYYY-MM-DD") == moment(maxDate).format("YYYY-MM-DD") ? "MMM dd, HH:mm" : "MMM dd",
       },
       title: {
         text: "Date Time",
